@@ -1,0 +1,19 @@
+<%= form_for @user, url: {action: "save_user"}, html: {class: "nifty_form"} do |f| %>
+   <p>
+    <%= f.label :"First Name" %><br>
+    <%= f.text_field :first_name %>
+  </p>
+  <p>
+    <%= f.label :"Last Name" %><br>
+    <%= f.text_field :last_name %>
+  </p>
+
+   <p>
+    <%= f.label :"Date of Birth" %><br>
+     <%= f.date_select :date_of_birth, :start_year => 1985,:order => [:day, :month, :year] %>
+   </p>
+   <p>
+    <%= f.submit "Submit and start the Test" %>
+   </p>
+  
+<% end %>

@@ -1,0 +1,52 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+
+function save_result(){
+	var querry='.q_';
+	var i;
+	var answer = "answer";
+	var z1 = 'input[name=answer';
+	var z2;
+	var input;
+	var user_id = <%= @user_id %>
+	var input_values={};
+	var z3= ']:checked'
+	for (i = 1;i <= <%= @question_count %> ;i++)
+	{
+	querry += i.toString();
+	z2 = (i).toString();
+	input=$(z1+z2+z3, querry).val();
+	input_values[i]=parseInt(input);
+	console.log(input);
+	querry ='.q_';
+	}
+	// $.post('/users/submit_test', function(data, status){
+ //        alert("Data: " + data + "\nStatus: " + status);
+ //    });
+
+	$.post('/users/submit_test', {input_values:input_values,user_id:user_id},function(data,status){
+        alert("Data: " + data + "\nStatus: " + status);
+    });
+}
+
+</script>
+<% user = @users.find_by_id @user_id%>
+<%= "Welcome " + user.first_name + " " + user.last_name + "\n"%>
+<%= "Lets Begin the Quizzz" %>
+<%= "Your id: " + @user_id %>
+<% id=@user_id %>
+<table>
+<% @questions.each do |question| %>
+    <% qid = "q_"+question.id.to_s %>
+    <% answer = "answer" + question.id.to_s %>
+    <tr class="<%= qid%>">
+      <td><%= question.question %></td><br>
+      <td><%= radio_button_tag answer, '1'  %><%= question.op1 %></td><br>
+      <td><%= radio_button_tag answer, '2'  %><%= question.op2 %></td><br>
+      <td><%= radio_button_tag answer, '3'  %><%= question.op3 %></td><br>
+      <td><%= radio_button_tag answer, '4'  %><%= question.op4 %></td><br>
+    </tr>
+<% end %>
+</table>
+
+<input type="button" name="get_result" value="Save and get result" onclick="save_result();">

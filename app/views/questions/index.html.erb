@@ -1,0 +1,28 @@
+<h1>List of questions</h1>
+ <%= link_to 'Add a question', new_question_path %>
+<table>
+  <tr>
+    <th>Question id</th>
+    <th>Question</th>
+    <th>Option 1</th>
+    <th>Option 2</th>
+    <th>Option 3</th>
+    <th>Option 4</th>
+    <th> Correct answer</th>
+  </tr>
+ 
+  <% @questions.each do |question| %>
+    <tr>
+      <td><%= question.id %></td>
+      <td><%= question.question %></td>
+      <td><%= question.op1 %></td>
+      <td><%= question.op2 %></td>
+      <td><%= question.op3 %></td>
+      <td><%= question.op4 %></td>
+      <td><%= question.correct %></td>
+      <td><%= link_to 'Show', question_path(question) %></td>
+      <td><%= link_to 'Edit', edit_question_path(question)%></td>
+      <td><%= link_to 'Destroy',question_path(question), method: :delete, data:  {confirm: 'Are you sure' }%></td>
+    </tr>
+  <% end %>
+</table>
